@@ -331,7 +331,7 @@ function Form() {
           </div>
         </TitleContainer>
       </FormHeader>
-      <Subtitle>Não sei oque ainda, mas terá algo legal aqui, ta ligado? algo desse tipo, nbão sei</Subtitle>
+      <Subtitle>Não fique de fora! Garanta sua reserva agora e prepare-se para algo único e exclusivo. Seu lugar está esperando por você!</Subtitle>
       <form onSubmit={handleSubmit}>
         <FormControl fullWidth margin="normal" error={errors.name}>
           <InputLabel htmlFor="name">Name</InputLabel>
