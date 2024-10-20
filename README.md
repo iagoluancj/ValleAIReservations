@@ -1,6 +1,6 @@
 # Sistema de Reserva de Mesas
 
-Este projeto é um sistema de reserva de mesas com duas interfaces: uma para usuários, onde é possível fazer reservas. As reservas são feitas por meio de uma visualização gráfica das mesas, semelhante a um modelo de assentos de cinema.
+Este projeto é um sistema de reserva de mesas. As reservas são feitas por meio de uma visualização gráfica das mesas, semelhante a um modelo de assentos de cinema.
 
 ## Tecnologias Utilizadas
 
