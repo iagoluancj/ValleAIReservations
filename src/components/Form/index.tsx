@@ -138,7 +138,8 @@ function Form() {
           name: formData.name,
           phone: retirarMascara,
           num_people: Number(formData.numPeople),
-          datetime: finalDateTime
+          datetime: finalDateTime,
+          status: 'e'
         }),
       });
 

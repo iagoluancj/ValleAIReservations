@@ -11,6 +11,7 @@ interface Disabled {
 export const Hours = styled.div`
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     gap: 1rem;
 `
 
@@ -37,9 +38,8 @@ export const SpanDisabled = styled.span<Disabled>`
 export const CalenderContainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
-    align-self: center;
     justify-content: space-between;
+    width: 100%;
 
     gap: 2rem;
     margin-bottom: 1rem;

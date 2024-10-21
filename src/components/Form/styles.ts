@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const Tables = styled.div`
     margin-top: 2rem;
     position: relative; 
-    width: 1000px;
-
 
     img {
         width: 1000px;
@@ -55,13 +53,14 @@ const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 
     form {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      
+      width: 100%;      
     }
 `
 

@@ -4,5 +4,5 @@ export const AppContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5rem;
+    padding: 2rem 10rem;
 `;
