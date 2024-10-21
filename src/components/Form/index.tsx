@@ -16,6 +16,7 @@ function Form() {
   const [mesas, setMesas] = useState<{ id: number; capacity: number; style: React.CSSProperties, name: string }[]>([]);
   const [reservations, setReservations] = useState<TypeReservations[]>([]);
 
+  // Modal para controle visual do usuário sob as ações de carregamento da aplicação
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -51,6 +52,7 @@ function Form() {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
+    // Validações do formulário.
     if (name === 'phone') {
       const formattedPhone = formatPhoneNumber(value);
       setFormData({
@@ -79,6 +81,7 @@ function Form() {
     }
   };
 
+  // Função para ajustar end_time ao padrões utilizados no sistema.
   function ajustarEndTime(selectedHorarios: string[]): string | null {
     if (selectedHorarios.length === 1) {
       let [hora, minuto] = selectedHorarios[0].split(':').map(Number);
@@ -98,6 +101,7 @@ function Form() {
     setLoading(true);
     setShowModal(true);
 
+    //Função para ajustar o starttime aos padrões utilizados no sistema.
     function ajustarStartTime(selectedHorarios: string[]): string | null {
       if (selectedHorarios.length > 0) {
         const startTime = selectedHorarios[0];
@@ -119,10 +123,12 @@ function Form() {
       const month = formattedDate?.slice(2, 4);
       const year = formattedDate?.slice(4, 8);
 
+      // Conversão final antes de enviar para o backend.
       const finalDateTime = `${year}-${month}-${day}T${startTime}:00-03:00`;
 
       const retirarMascara = formData.phone.replace(/\D/g, '');
 
+      //Envia post com os dados da reserva
       const reservationResponse = await fetch('https://bookingsystem-mblf.onrender.com/reservations/', {
         method: 'POST',
         headers: {
@@ -146,6 +152,7 @@ function Form() {
       const endTime = ajustarEndTime(selectedHorarios);
       const endDateTime = `${year}-${month}-${day}T${endTime}-03:00`;
 
+      // Com base no valor retornado pelo primeiro post, pega o ID da reserva e relaciona a mesa dentro da tabela de "bookedtables".
       const bookedTableResponse = await fetch('https://bookingsystem-mblf.onrender.com/bookedtables/', {
         method: 'POST',
         headers: {
@@ -172,6 +179,7 @@ function Form() {
       console.log('Processo de reserva concluído.');
     }
 
+    // Apresenta erros de acordo com a validação após enviar o submit. 
     const newErrors = {
       name: !formData.name.trim(),
       numPeople: !formData.numPeople.trim(),
@@ -180,6 +188,8 @@ function Form() {
     setErrors(newErrors);
 
     if (!newErrors.name && !newErrors.numPeople) {
+
+      // Para melhor compreensão do usuário, retorna o formulário para default.
       setFormData({
         dateHour: '',
         name: '',
@@ -189,6 +199,7 @@ function Form() {
     }
   };
 
+  // Controle visual do usuário em relação a mesa selecionada.
   const handleTableClick = async (id: number) => {
     if (selectedTable === id) {
       setSelectedTable(null);
@@ -197,10 +208,12 @@ function Form() {
     }
   };
 
+  // Controle sobre o valor de "data" do calendário do formulário.
   const handleDateChange = (newDate: Date | null) => {
     setSelectedDate(newDate || new Date());
   };
 
+  // Todo controle referente aos horários. 
   const handleClicked = (horario: string) => {
     if (disabledHour.includes(horario)) {
       toast.error("Este horário já está ocupado.");
@@ -212,6 +225,7 @@ function Form() {
     const lastSelectedIndex = horarios.indexOf(selectedHorarios[selectedHorarios.length - 1]);
 
     if (selectedHorarios.length >= 3 && !selectedHorarios.includes(horario)) {
+      // Retorno visual para o usuário
       toast.error("Para marcar mais de 3 horários, entre em contato via telefone.");
       return;
     }
@@ -227,6 +241,7 @@ function Form() {
       ) {
         setSelectedHorarios([...selectedHorarios, horario].sort((a, b) => horarios.indexOf(a) - horarios.indexOf(b)));
       } else {
+        // Retorno visual para o usuário
         toast.error("Selecione apenas horários consecutivos.");
       }
     }
@@ -240,6 +255,9 @@ function Form() {
           const response = await fetch('https://bookingsystem-mblf.onrender.com/seats/');
           const data = await response.json();
 
+          // Estilização manual com base no ID de cada mesa.
+          // A principio decidi deixar dessa forma, para melhor visualiação durante o desenvolvimento e até que o MVP fosse totalmente definido
+          // após isso, integrar uma solução de melhor escalabilidade para interface visual sobre as mesas. 
           const mesasComStyle = data.map((mesa: any) => {
             let style = {};
             switch (mesa.id) {
@@ -305,6 +323,9 @@ function Form() {
       fetchMesas();
     }
 
+    // Busca as mesas e armazena-as no estado local.
+    // Por ora, optei por tratar os dados diretamente na comunicação com o backend, portanto o "reservations" não está sendo usado.
+    // Visei facilitar o desenvolvimento inicial antes de implementar um contexto ou hook para gerenciamento de estado global.
     const fetchReservations = async () => {
       try {
         const response = await fetch('https://bookingsystem-mblf.onrender.com/reservations/');
@@ -320,6 +341,9 @@ function Form() {
     setSelectedDate(new Date());
   }, []);
 
+  // Inicialmente, minha ideia, e pelas melhores práticas, era separar a "ImageTables" do "Fomulário", contudo, ainda sobre a facilidade no 
+  // desenvolvimento, e devido ao tempo curto, optei por deixa-los em um unico arquivo para facilidade na trativa dos dados.
+  // Mas que, posteriormente, para melhor controle e qualidade do software, seria separado em components e gerenciados atráves do context. 
   return (
     <FormContainer>
       <FormHeader>
@@ -363,6 +387,8 @@ function Form() {
             value={formData.phone}
             onChange={handleChange}
           />
+
+          {/* Visualização de erros em "phone" desativado por hora, devido a algum bug que está fazendo com que não se comporte da maneira esperada.*/}
           {/* {errors.phone && <FormHelperText>Telefone inválido.</FormHelperText>} */}
         </FormControl>
         <FormControl fullWidth margin="normal">
@@ -431,7 +457,7 @@ function Form() {
               onClick={() => handleTableClick(mesa.id)}
               style={{
                 ...mesa.style,
-                background: selectedTable === mesa.id ? '#0000FF50' : '#ffb70020',
+                background: selectedTable === mesa.id ? '#0000FF50' : '#ffb70020', // A utilização de ambos "background" é apenas para visualização, será corrigido futuramente.
                 backgroundColor: Number(formData.numPeople) === mesa.capacity ? '#15ff0050' : '#ffb70020',
                 borderRadius: '10px',
                 display: 'flex',
@@ -445,11 +471,12 @@ function Form() {
             </div>
           ))}
         </Tables>
-        <Button variant="contained" color="primary" fullWidth type="submit" disabled={loading}>
+        <Button variant="contained" color="primary" fullWidth type="submit" disabled={loading}> {/* Botão é desabilitado ao enviar o submit, para evitar demasiadas requisições a API */}
           {loading ? 'Reservando...' : 'Reservar'}
         </Button>
       </form >
 
+      {/* Simples solução que peguei de outro projeto para reposta visual ao usuário */}
       {showModal && <ConfirmModal message="Reserva sendo criada, aguarde..." onClose={() => setShowModal(false)} />}
 
     </FormContainer >
