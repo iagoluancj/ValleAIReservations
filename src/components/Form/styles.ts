@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+// A principio, ainda seguindo o foco de visualização dos dados, deixei a responsividade em segundo plano enquanto a concepção
+// da aplicação era realizada. 
+// Contudo, para agregar valor, e como um ponto muito importante, irei implementar a responsividade na aplicação durante o dia de hoje.
 export const Tables = styled.div`
     margin-top: 2rem;
     position: relative; 
