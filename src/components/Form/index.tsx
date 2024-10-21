@@ -176,6 +176,7 @@ function Form() {
       console.error('Erro:', error);
     } finally {
       setLoading(false);
+      toast.success("Mesa reservada.");
       setShowModal(false);
       console.log('Processo de reserva concluído.');
     }
