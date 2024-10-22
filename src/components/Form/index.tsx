@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Input, Button, FormControl, InputLabel, FormHelperText } from '@mui/material';
-import { ButtonSubmit, FormContainer, FormHeader, Logo, NameTable, Subtitle, TableContainer, Tables, Title, TitleContainer } from './styles';
+import { ButtonSubmit, FormContainer, FormDiv, FormHeader, Logo, NameTable, Subtitle, TableContainer, Tables, Title, TitleContainer } from './styles';
 import logoValle from '../../assets/logoValle.png'
 import imageMesas from '../../assets/mesas.webp'
 import { TypeReservations } from '../../types/types';
@@ -362,41 +362,41 @@ function Formu() {
         </FormHeader>
         <Subtitle>Garanta sua reserva agora e prepare-se para algo único e exclusivo. Seu lugar está esperando por você!</Subtitle>
         <form onSubmit={handleSubmit}>
-          <FormControl fullWidth margin="normal" error={errors.name}>
-            <InputLabel htmlFor="name">Name</InputLabel>
-            <Input
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            {errors.name && <FormHelperText>Nome é obrigatório.</FormHelperText>}
-          </FormControl>
+          <FormDiv>
+            <FormControl fullWidth margin="normal" error={errors.name}>
+              <InputLabel htmlFor="name">Name</InputLabel>
+              <Input
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+              {errors.name && <FormHelperText>Nome é obrigatório.</FormHelperText>}
+            </FormControl>
 
-          <FormControl fullWidth margin="normal" error={errors.numPeople}>
-            <InputLabel htmlFor="numPeople">Número de pessoas</InputLabel>
-            <Input
-              id="numPeople"
-              name="numPeople"
-              value={formData.numPeople}
-              onChange={handleChange}
+            <FormControl fullWidth margin="normal" error={errors.numPeople}>
+              <InputLabel htmlFor="numPeople">Número de pessoas</InputLabel>
+              <Input
+                id="numPeople"
+                name="numPeople"
+                value={formData.numPeople}
+                onChange={handleChange}
 
-            />
-            {errors.numPeople && <FormHelperText>Quantidade inválida.</FormHelperText>}
-          </FormControl>
+              />
+              {errors.numPeople && <FormHelperText>Quantidade inválida.</FormHelperText>}
+            </FormControl>
 
-          <FormControl fullWidth margin="normal" error={errors.phone}>
-            <InputLabel htmlFor="phone">Telefone</InputLabel>
-            <Input
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-            {errors.phone && <FormHelperText>Telefone inválido.</FormHelperText>}
-          </FormControl>
-          <FormControl fullWidth margin="normal">
-          </FormControl>
+            <FormControl fullWidth margin="normal" error={errors.phone}>
+              <InputLabel htmlFor="phone">Telefone</InputLabel>
+              <Input
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+              {errors.phone && <FormHelperText>Telefone inválido.</FormHelperText>}
+            </FormControl>
+          </FormDiv>
           <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
             <Grid container spacing={0}>
               <CalenderContainer>

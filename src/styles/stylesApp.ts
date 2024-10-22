@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TitleContainer } from "../components/Form/styles";
+import { FormDiv, TitleContainer } from "../components/Form/styles";
 import { CalenderContainer } from "../components/Calender/styles";
 
 export const AppContainer = styled.div`
@@ -17,6 +17,10 @@ export const GlobalStyles = styled.div`
 
     @media (max-width: 578px) {
         ${CalenderContainer} {
+            flex-direction: column;
+            justify-content: center;
+        }
+        ${FormDiv} {
             flex-direction: column;
         }
     }

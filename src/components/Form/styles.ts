@@ -83,6 +83,13 @@ const FormContainer = styled.div`
     }
 `
 
+export const FormDiv = styled.div`
+  width: 100%;
+  display: flex;
+  margin-bottom: 1rem;
+  gap: 1rem;
+`
+
 const FormHeader = styled.div`
     display: flex;
     justify-content: center;
