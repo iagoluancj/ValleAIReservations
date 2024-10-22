@@ -17,7 +17,7 @@ export const SeparatorLogin = styled.div`
 
 export const LoginContainer = styled.div`
   position: relative;
-  background: linear-gradient(135deg, #f8c4a1, #e79675);
+  background-color: #fff;
   padding: 3rem 5rem 1rem 5rem;
   border-radius: 16px;
   box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.25);
@@ -61,13 +61,13 @@ export const Logo = styled.div`
 
 export const Title = styled.h2`
   font-size: 1.8rem;
-  color: #fff;
+  color: #f8c4a1;
   font-weight: bold;
 `;
 
 export const Subtitle = styled.span`
   font-size: 1rem;
-  color: #fff;
+  color: #f8c4a1;
 `;
 
 export const Formu = styled.form`
@@ -110,15 +110,16 @@ export const SubmitButton = styled.button`
   border-radius: 8px;
   background: #fff;
   color: #e79675;
-  border: 1px solid transparent;
+  border: 1px solid #f8c4a1;
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s ease;
 
   &:hover {
-    background: linear-gradient(135deg, #00000000, #00000000);
-    border: 1px solid #fff;
+    background: linear-gradient(135deg, #f8c4a1, #f8c4a1);
+    transform: scale(1.03);
+    border: 1px solid #f8c4a1;
     color: #fff;
     transition: 0.3s ease;
   }
@@ -127,7 +128,7 @@ export const SubmitButton = styled.button`
 export const ForgotPassword = styled.a`
   margin-top: 2rem;
   font-size: 0.9rem;
-  color: #fff;
+  color: #00000090;
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.3s ease;
