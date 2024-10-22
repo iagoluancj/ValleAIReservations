@@ -3,9 +3,24 @@ import styled from "styled-components";
 // A principio, ainda seguindo o foco de visualização dos dados, deixei a responsividade em segundo plano enquanto a concepção
 // da aplicação era realizada. 
 // Contudo, para agregar valor, e como um ponto muito importante, irei implementar a responsividade na aplicação durante o dia de hoje.
+
+export const TableContainer = styled.div`
+  width: 100%;
+  height: 620px;
+  position: relative;
+
+
+    @media (max-width: 1048px) {
+      overflow-x: scroll;
+    }
+`
+
 export const Tables = styled.div`
     margin-top: 2rem;
-    position: relative; 
+    padding: 2;
+    position: absolute; 
+    overflow: auto;
+    border-radius: 20px;
 
     img {
         width: 1000px;
@@ -56,6 +71,7 @@ const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
 
     form {
@@ -63,7 +79,7 @@ const FormContainer = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 100%;      
+      width: 100%;  
     }
 `
 
@@ -93,17 +109,38 @@ export const Logo = styled.div`
 
 export const Title = styled.h2`
   font-size: 1.8rem;
-  color: #000;
+  color: #000000;
   font-weight: bold;
 `;
 
 export const Subtitle = styled.p`
   font-size: 1rem;
-  color: #000;
+  color: #00000080;
 `;
 
-export const ButtonControler = styled.div`
-  width: 50%;
+export const ButtonSubmit = styled.button`
+  margin-top: 1rem;
+  width: 100%;
+  padding: .5rem;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #f8c4a1, #e79675);
+  color: #fff;
+  border: 1px solid transparent;
+  box-shadow: 1px 1px 10px 1px rgb(0, 0, 0, .3);
+
+  transition: .4s ease-out;
+
+  &:hover {
+    border: 1px solid #e79675;
+    background: linear-gradient(135deg, #f8c4a100, #e7967500);
+    color: #e79675;
+    transform: scale(1.01);
+    cursor: pointer;
+
+    transition: .4s ease-out;
+  }
 `;
 
 export { FormContainer, FormHeader };

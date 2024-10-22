@@ -1,16 +1,17 @@
 import React from 'react';
 import "../src/styles/global.css";
-import Form from './components/Form';
-import { AppContainer } from './styles/stylesApp';
+import { AppContainer, GlobalStyles } from './styles/stylesApp';
 import ToastProvider from './lib/ToastProvider';
-import { ToastContainer } from 'react-toastify';
+import Formu from './components/Form';
 
 function App() {
   return (
     <AppContainer>
-      <ToastProvider>
-        <Form />
-      </ToastProvider>
+      <GlobalStyles>
+        <ToastProvider>
+          <Formu />
+        </ToastProvider>
+      </GlobalStyles>
     </AppContainer>
   );
 }

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Input, Button, FormControl, InputLabel, FormHelperText } from '@mui/material';
-import { FormContainer, FormHeader, Logo, NameTable, Subtitle, Tables, Title, TitleContainer } from './styles';
+import { ButtonSubmit, FormContainer, FormHeader, Logo, NameTable, Subtitle, TableContainer, Tables, Title, TitleContainer } from './styles';
 import logoValle from '../../assets/logoValle.png'
 import imageMesas from '../../assets/mesas.webp'
 import { TypeReservations } from '../../types/types';
@@ -12,7 +12,7 @@ import { CalenderContainer, Hours, SpanDisabled, SpanHour } from '../Calender/st
 import { toast } from 'react-toastify';
 import ConfirmModal from '../Modal';
 
-function Form() {
+function Formu() {
   const [mesas, setMesas] = useState<{ id: number; capacity: number; style: React.CSSProperties, name: string }[]>([]);
   const [reservations, setReservations] = useState<TypeReservations[]>([]);
 
@@ -32,7 +32,7 @@ function Form() {
     dateHour: '',
   })
 
-  const [errors, setErrors] = useState({ name: false, numPeople: false });
+  const [errors, setErrors] = useState({ name: false, numPeople: false, phone: false });
 
   const formatPhoneNumber = (value: string) => {
     let newValue = value.replace(/\D/g, '');
@@ -172,11 +172,12 @@ function Form() {
       }
 
       console.log('Mesa reservada com sucesso.');
+      toast.success("Mesa reservada com sucesso.");
     } catch (error) {
+      toast.error("Erro ao reservar a mesa.");
       console.error('Erro:', error);
     } finally {
       setLoading(false);
-      toast.success("Mesa reservada.");
       setShowModal(false);
       console.log('Processo de reserva concluído.');
     }
@@ -185,6 +186,7 @@ function Form() {
     const newErrors = {
       name: !formData.name.trim(),
       numPeople: !formData.numPeople.trim(),
+      phone: !formData.phone.trim()
     };
 
     setErrors(newErrors);
@@ -347,74 +349,74 @@ function Form() {
   // desenvolvimento, e devido ao tempo curto, optei por deixa-los em um unico arquivo para facilidade na trativa dos dados.
   // Mas que, posteriormente, para melhor controle e qualidade do software, seria separado em components e gerenciados atráves do context. 
   return (
-    <FormContainer>
-      <FormHeader>
-        <TitleContainer>
-          <Logo><img src={logoValle} alt="Logo" /></Logo>
-          <div>
-            <Title>Bem-vindo(a)</Title>
-            <Subtitle>Faça sua reserva</Subtitle>
-          </div>
-        </TitleContainer>
-      </FormHeader>
-      <Subtitle>Não fique de fora! Garanta sua reserva agora e prepare-se para algo único e exclusivo. Seu lugar está esperando por você!</Subtitle>
-      <form onSubmit={handleSubmit}>
-        <FormControl fullWidth margin="normal" error={errors.name}>
-          <InputLabel htmlFor="name">Name</InputLabel>
-          <Input
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          {errors.name && <FormHelperText>Nome é obrigatório.</FormHelperText>}
-        </FormControl>
+    <>
+      <FormContainer>
+        <FormHeader>
+          <TitleContainer>
+            <Logo><img src={logoValle} alt="Logo" /></Logo>
+            <div>
+              <Title>Bem-vindo(a)</Title>
+              <Subtitle>Faça sua reserva abaixo</Subtitle>
+            </div>
+          </TitleContainer>
+        </FormHeader>
+        <Subtitle>Garanta sua reserva agora e prepare-se para algo único e exclusivo. Seu lugar está esperando por você!</Subtitle>
+        <form onSubmit={handleSubmit}>
+          <FormControl fullWidth margin="normal" error={errors.name}>
+            <InputLabel htmlFor="name">Name</InputLabel>
+            <Input
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            {errors.name && <FormHelperText>Nome é obrigatório.</FormHelperText>}
+          </FormControl>
 
-        <FormControl fullWidth margin="normal" error={errors.numPeople}>
-          <InputLabel htmlFor="numPeople">Número de pessoas</InputLabel>
-          <Input
-            id="numPeople"
-            name="numPeople"
-            value={formData.numPeople}
-            onChange={handleChange}
-          />
-          {errors.numPeople && <FormHelperText>Quantidade inválida.</FormHelperText>}
-        </FormControl>
+          <FormControl fullWidth margin="normal" error={errors.numPeople}>
+            <InputLabel htmlFor="numPeople">Número de pessoas</InputLabel>
+            <Input
+              id="numPeople"
+              name="numPeople"
+              value={formData.numPeople}
+              onChange={handleChange}
 
-        <FormControl fullWidth margin="normal">
-          <InputLabel htmlFor="phone">Telefone</InputLabel>
-          <Input
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-          />
+            />
+            {errors.numPeople && <FormHelperText>Quantidade inválida.</FormHelperText>}
+          </FormControl>
 
-          {/* Visualização de erros em "phone" desativado por hora, devido a algum bug que está fazendo com que não se comporte da maneira esperada.*/}
-          {/* {errors.phone && <FormHelperText>Telefone inválido.</FormHelperText>} */}
-        </FormControl>
-        <FormControl fullWidth margin="normal">
-        </FormControl>
-        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
-          <Grid container spacing={0}>
-            <CalenderContainer>
-              <Grid item xs={0}>
-                <DatePicker
-                  label="Selecione a data"
-                  value={selectedDate}
-                  minDate={new Date()}
-                  onChange={handleDateChange}
-                />
-              </Grid>
+          <FormControl fullWidth margin="normal" error={errors.phone}>
+            <InputLabel htmlFor="phone">Telefone</InputLabel>
+            <Input
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+            {errors.phone && <FormHelperText>Telefone inválido.</FormHelperText>}
+          </FormControl>
+          <FormControl fullWidth margin="normal">
+          </FormControl>
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ptBR}>
+            <Grid container spacing={0}>
+              <CalenderContainer>
+                <Grid item xs={0}>
+                  <DatePicker
+                    label="Selecione a data"
+                    value={selectedDate}
+                    minDate={new Date()}
+                    onChange={handleDateChange}
+                  />
+                </Grid>
 
-              <Grid item xs={0}>
-                {selectedDate ? (
-                  <Box>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                      <Typography variant="h6">Horários disponíveis para {selectedDate.toLocaleDateString('pt-BR')}:</Typography>
-                      {horarios.length > 0 ? (
-                        <Hours>
-                          {/* {horarios.map((horario, index) => (
+                <Grid item xs={0}>
+                  {selectedDate ? (
+                    <Box>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                        <Typography variant="h6">Horários disponíveis para {selectedDate.toLocaleDateString('pt-BR')}:</Typography>
+                        {horarios.length > 0 ? (
+                          <Hours>
+                            {/* {horarios.map((horario, index) => (
                             <SpanDisabled $isDisabled={false}>
                               <SpanHour key={index} onClick={() => handleClicked(horario)}
                                 $clicked={selectedHorarios.includes(horario)}>
@@ -422,67 +424,69 @@ function Form() {
                               </SpanHour>
                             </SpanDisabled>
                           ))} */}
-                          {horarios.map((horario, index) => (
-                            <SpanDisabled $isDisabled={disabledHour.includes(horario)}>
-                              <SpanHour
-                                key={index}
-                                onClick={() => handleClicked(horario)}
-                                $clicked={selectedHorarios.includes(horario)}
-                                className={disabledHour.includes(horario) ? 'disabled' : ''}
-                                style={{
-                                  textDecoration: disabledHour.includes(horario) ? 'line-through' : 'none',
-                                  cursor: disabledHour.includes(horario) ? 'not-allowed' : 'pointer'
-                                }}
-                              >
-                                {horario}
-                              </SpanHour>
-                            </SpanDisabled>
-                          ))}
-                        </Hours>
-                      ) : (
-                        <Typography variant="body1">Nenhum horário disponível.</Typography>
-                      )}
-                    </div>
-                  </Box>
-                ) :
-                  <div></div>}
-              </Grid>
-            </CalenderContainer>
-          </Grid>
-        </LocalizationProvider >
-        <Tables>
-          <img src={imageMesas} alt="Restaurant Tables" />
-          {mesas.map((mesa) => (
-            <div
-              key={mesa.id}
-              className="table-area"
-              onClick={() => handleTableClick(mesa.id)}
-              style={{
-                ...mesa.style,
-                background: selectedTable === mesa.id ? '#0000FF50' : '#ffb70020', // A utilização de ambos "background" é apenas para visualização, será corrigido futuramente.
-                backgroundColor: Number(formData.numPeople) === mesa.capacity ? '#15ff0050' : '#ffb70020',
-                borderRadius: '10px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '30px',
-                transform: selectedTable === mesa.id ? 'scale(1.1)' : 'scale(1)',
-              }}
-            >
-              <span><p>{mesa.capacity}</p><NameTable>{mesa.name}</NameTable></span>
-            </div>
-          ))}
-        </Tables>
-        <Button variant="contained" color="primary" fullWidth type="submit" disabled={loading}> {/* Botão é desabilitado ao enviar o submit, para evitar demasiadas requisições a API */}
-          {loading ? 'Reservando...' : 'Reservar'}
-        </Button>
-      </form >
+                            {horarios.map((horario, index) => (
+                              <SpanDisabled $isDisabled={disabledHour.includes(horario)}>
+                                <SpanHour
+                                  key={index}
+                                  onClick={() => handleClicked(horario)}
+                                  $clicked={selectedHorarios.includes(horario)}
+                                  className={disabledHour.includes(horario) ? 'disabled' : ''}
+                                  style={{
+                                    textDecoration: disabledHour.includes(horario) ? 'line-through' : 'none',
+                                    cursor: disabledHour.includes(horario) ? 'not-allowed' : 'pointer'
+                                  }}
+                                >
+                                  {horario}
+                                </SpanHour>
+                              </SpanDisabled>
+                            ))}
+                          </Hours>
+                        ) : (
+                          <Typography variant="body1">Nenhum horário disponível.</Typography>
+                        )}
+                      </div>
+                    </Box>
+                  ) :
+                    <div></div>}
+                </Grid>
+              </CalenderContainer>
+            </Grid>
+          </LocalizationProvider >
+          <TableContainer>
+            <Tables>
+              <img src={imageMesas} alt="Restaurant Tables" />
+              {mesas.map((mesa) => (
+                <div
+                  key={mesa.id}
+                  className="table-area"
+                  onClick={() => handleTableClick(mesa.id)}
+                  style={{
+                    ...mesa.style,
+                    background: selectedTable === mesa.id ? '#0000FF50' : '#ffb70020', // A utilização de ambos "background" é apenas para visualização, será corrigido futuramente.
+                    backgroundColor: Number(formData.numPeople) === mesa.capacity ? '#15ff0050' : '#ffb70020',
+                    borderRadius: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '30px',
+                    transform: selectedTable === mesa.id ? 'scale(1.1)' : 'scale(1)',
+                  }}
+                >
+                  <span><p>{mesa.capacity}</p><NameTable>{mesa.name}</NameTable></span>
+                </div>
+              ))}
+            </Tables>
+          </TableContainer>
+          <ButtonSubmit type="submit" disabled={loading}> {/* Botão é desabilitado ao enviar o submit, para evitar demasiadas requisições a API */}
+            {loading ? 'Reservando...' : 'Reservar'}
+          </ButtonSubmit>
+        </form >
 
-      {/* Simples solução que peguei de outro projeto para reposta visual ao usuário */}
-      {showModal && <ConfirmModal message="Reserva sendo criada, aguarde..." onClose={() => setShowModal(false)} />}
-
-    </FormContainer >
+        {/* Simples solução que peguei de outro projeto para reposta visual ao usuário */}
+        {showModal && <ConfirmModal message="Reserva sendo criada, aguarde..." onClose={() => setShowModal(false)} />}
+      </FormContainer >
+    </>
   );
 }
 
-export default Form;
+export default Formu;

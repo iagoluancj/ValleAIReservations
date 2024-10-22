@@ -17,11 +17,17 @@ export const Hours = styled.div`
 
 export const SpanHour = styled.div<Clicado>`
     padding: .3rem;
-    background-color: ${({ $clicked }) => ($clicked ? "transparent" : "#1565C0")};  // desativado 878787
+    background-color: ${({ $clicked }) => ($clicked ? "transparent" : "linear-gradient(135deg, #f8c4a1, #e79675)")};  // desativado 878787
     color: ${({ $clicked }) => ($clicked ? "#000" : "#fff")};  
-    border: 1px solid ${({ $clicked }) => ($clicked ? "#1565C0" : "transparent")};
+    border: 1px solid ${({ $clicked }) => ($clicked ? "#e79675" : "transparent")};
+    /* background: linear-gradient(135deg, #f8c4a1, #e79675); */
     border-radius: 5px;
     transition: .1s ease-in-out;   
+
+    background: ${({ $clicked }) =>
+        $clicked
+            ? "transparent"
+            : "linear-gradient(135deg, #f8c4a1, #e79675)"};
 
     &:hover {
         cursor: pointer;
